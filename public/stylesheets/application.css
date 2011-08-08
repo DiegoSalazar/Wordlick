@@ -9,7 +9,7 @@ h1,#container{margin:10px;}
 #flash_error,#flash_alert{background-color:#FCC;border:solid 1px #C66;}
 fieldset{margin:0 0 20px 0;border:0 none;}
 input[type="text"]{width:95%;padding:5px 10px;font-size:18px;color:#333;}
-input[type="submit"]{font-size:32px;}
+input[type="submit"]{font-size:24px;}
 .note{font-style:italic;font-size:12px;}
 .fieldWithErrors{display:inline;}
 .error_messages{width:400px;border:2px solid #CF0000;padding:0px;padding-bottom:12px;margin-bottom:20px;background-color:#f0f0f0;font-size:12px;}
