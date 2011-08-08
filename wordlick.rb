@@ -1,4 +1,5 @@
-%w(rubygems sinatra erb).map { |lib| require lib }
+require 'rubygems'
+require 'sinatra'
 
 get '/' do
   erb :layout
