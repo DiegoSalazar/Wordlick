@@ -61,7 +61,7 @@
 			<% if @results %>
 				<p><%= @results.size %> results for <%= @find %></p>
 				<ol id="result">
-					<%= @results.map { |r| "<li>#{r}</li>" } %>
+					<%= @results.map { |r| "<li>#{r}</li>" }.join "\n" %>
 				</ol>
 			<% end %>
 

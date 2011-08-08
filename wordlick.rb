@@ -13,7 +13,7 @@ post '/' do
   regex          = /^(#{@find.split('').map { |f| f == '?' ? any_letter : f }.join ''})$/
   
   @results = words.select { |w| w.match(regex) }
-  @results = @results.reject { |w| /#{@except}/i.match(w) } if @except && @except != ''
+  @results.reject! { |w| /#{@except}/i.match(w) } if @except && @except != ''
   
   erb :layout
 end
