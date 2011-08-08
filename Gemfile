@@ -1,1 +1,1 @@
-gem 'sinatra
+gem 'sinatra'
