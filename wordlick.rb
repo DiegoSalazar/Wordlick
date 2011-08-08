@@ -10,7 +10,7 @@ post '/' do
   params = env['rack.request.form_hash']
   @find, @except = params['find'], params['except']
   any_letter     = '[a-zA-Z]{1}'
-  regex          = /^(#{@find.split('').map { |f| f == '?' ? any_letter : f }.join ''})$/
+  regex          = /^(#{@find.split('').map { |f| f == '?' ? any_letter : f }.join ''})$/i
   
   @results = words.select { |w| w.match(regex) }
   @results.reject! { |w| /#{@except}/i.match(w) } if @except && @except != ''
