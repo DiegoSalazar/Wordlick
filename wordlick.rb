@@ -13,6 +13,6 @@ get '/solve' do
   @find    = CGI.unescape env['rack.request.query_hash']['find']
   @except  = CGI.unescape env['rack.request.query_hash']['except']
   @results = Wordlicker.get_solush @find, @except
-  @debug   = Wordlicker.debug
+  #@debug   = Wordlicker.debug
   erb :layout
 end
