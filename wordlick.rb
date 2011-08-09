@@ -2,7 +2,8 @@
 # hangman solver controller
 # (c) 2011 Diego Salazar
 
-%w(rubygems sinatra cgi wordlicker).map { |lib| require lib }
+%w(rubygems sinatra cgi).map { |lib| require lib }
+require './wordlicker'
 
 get '/' do
   erb :layout
