@@ -16,7 +16,7 @@ class Wordlicker
     
     def debug
       require 'pp'
-      { :regexp => @regexp, :matchers => matchers, :rgxcept => @rgxcept }
+      { :regexp => @regexp, :rgxcept => @rgxcept }
     end
     
     private
