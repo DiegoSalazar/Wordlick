@@ -62,7 +62,7 @@
 			<%= erb :debug if @debug %>
 
 			<% if @results.size == 1 %>
-				<p id="solved">The solush is <strong><%= @results %>!</strong></p>
+				<p id="solved">The solush is <strong><%= @results.first %>!</strong></p>
 			<% else %>
 				<div id="results">
 					<p><%= @results.size %> results for <%= @find %></p>
