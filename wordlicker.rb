@@ -31,7 +31,7 @@ class Wordlicker
     
     # match a known letter, or an unknown letter while excluding known letters
     def matchers
-      @find.split('').map { |char| char == '?' ? allowed_letters : "#{char}{1}" }
+      @find.split('').map { |char| char == '?' ? allowed_letters : "#{char}{1}" }.join ''
     end
     
     # builds a regex: /[abdef...]{1}/ that excludes known letters
