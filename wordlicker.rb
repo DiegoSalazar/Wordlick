@@ -25,19 +25,14 @@ class Wordlicker
       @results
     end
     
-    # match a known letter, or an unknown letter but excluding known letters
+    # match a known letter, or an unknown letter while excluding known letters
     def matchers
-      @find.split('').map { |char| char == '?' ? finder_without_known : "#{char}{1}" }
+      @find.split('').map { |char| char == '?' ? allowed_letters : "#{char}{1}" }
     end
     
     # builds a regex: /[abdef...]{1}/ that excludes known letters
-    def finder_without_known
-      allowed_letters = LETTERS.reject { |letter| known_letters.include? letter }
-      "[#{allowed_letters}]{1}"
-    end
-    
-    def known_letters
-      @find.split '?'
+    def allowed_letters
+      @allowed_letters ||= "[#{LETTERS.reject { |letter| @find.split('?').include? letter }}]{1}"
     end
     
   end
