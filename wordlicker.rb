@@ -4,7 +4,7 @@
 
 class Wordlicker
   LETTERS = %w(a b c d e f g h i j k l m n o p q r s t u v w x y z)
-  WORDS   = File.read('words').split("\n") # copied this file from the ENABLE dictionary
+  WORDS   = File.read('./words').split("\n") # copied this file from the ENABLE dictionary
   
   class << self
     # setup a regex to match the letters given in @find while omiting letters in @except
