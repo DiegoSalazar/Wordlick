@@ -1,7 +1,9 @@
 body{background-color:#4B7399;font-family:Verdana,Helvetica,Arial;font-size:16px;color:#333;}
 a img{border:none;}
 a{color:#0000FF;}
+p{margin-bottom:7px;}
 .clear{clear:both;height:0;overflow:hidden;}
+h1{font-size:22px;color:#fff;text-shadow:1px 2px #333;}
 h1,#container,footer{margin:10px;}
 #container{background-color:#FFF;padding:7px 10px;}
 #flash_notice,#flash_error,#flash_alert{padding:5px 8px;margin:10px 0;}
@@ -17,3 +19,5 @@ input[type="submit"]{font-size:24px;}
 .error_messages p{margin:8px 10px;}
 .error_messages ul{margin:0;}
 li{font-size:12px;}
+#results,#solved{border:2px solid #393;padding:7px;}
+#solved{background:#0C9;}

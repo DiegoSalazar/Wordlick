@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
 <!--[if lt IE 7 ]> <html class="no-js ie6" lang="en"> <![endif]-->
 <!--[if IE 7 ]>    <html class="no-js ie7" lang="en"> <![endif]-->
@@ -26,7 +26,7 @@
   <!-- CSS: implied media="all" -->
   <link rel="stylesheet" href="/stylesheets/style.css">
 
-	<link rel="stylesheet" href="/stylesheets/application.css?v=5">
+	<link rel="stylesheet" href="/stylesheets/application.css?v=6">
 
   <!-- Uncomment if you are specifically targeting less enabled mobile browsers
   <link rel="stylesheet" media="handheld" href="/css/handheld.css?v=2">  -->
@@ -39,33 +39,40 @@
 	<header>
 		<h1>Wordlick</h1>
   </header>
-	
-  <div id="container">
-    <div id="container" role="main">
-		
-      <form action="/" method="post">
-				<fieldset>
-					<legend>Enter a Word<br /><span class="note">use ? for unknown letters</span></legend>
-					<input name="find" type="text" value="<%= @find %>" />
-				</fieldset>
-				<fieldset>
-					<legend>Exceptional letters<br /><span class="note">letters that have already been used</span></legend>
-					<input name="except" type="text" value="<%= @except %>" />
-				</fieldset>
-				<fieldset>
-					<input value="Lick That Word!" type="submit" />
-				</fieldset>
-			</form>
 
-			<% if @results %>
-				<%= erb :debug if @debug %>
-				<p><%= @results.size %> results for <%= @find %></p>
-				<ol id="result">
+  <div id="container" role="main">
+
+		<form action="/solve" method="get">
+			<fieldset>
+				<legend>Enter a Word<br /><span class="note">use ? for unknown letters</span></legend>
+				<input name="find" type="text" value="<%= @find %>" />
+			</fieldset>
+
+			<fieldset>
+				<legend>Exceptional letters<br /><span class="note">letters that have already been used</span></legend>
+				<input name="except" type="text" value="<%= @except %>" />
+			</fieldset>
+
+			<fieldset>
+				<input value="Lick That Word!" type="submit" />
+			</fieldset>
+		</form>
+
+		<% if @results %>
+			<%= erb :debug if @debug %>
+
+			<% if @results.size == 1 %>
+				<p id="solved">The solush is <strong><%= @results %>!</strong></p>
+			<% else %>
+				<div id="results">
+					<p><%= @results.size %> results for <%= @find %></p>
+
+					<ol>
 					<%= @results.map { |r| "<li>#{r}</li>" }.join "\n" %>
-				</ol>
+					</ol>
+				</div>
 			<% end %>
-
-    </div>
+		<% end %>
   </div> <!--! end of #container -->
 
 	<footer>
