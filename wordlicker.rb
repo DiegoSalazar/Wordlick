@@ -3,7 +3,7 @@
 # (c) 2011 Diego Salazar
 
 class Wordlicker
-  LETTERS = %w(a b c d e f g h i j k l m n o p q r s t u v w x y z)
+  LETTERS = ('a'..'z').map
   WORDS   = File.read('./words').split("\n") # copied this file from the ENABLE dictionary
   
   class << self
@@ -31,12 +31,12 @@ class Wordlicker
     
     # match a known letter, or an unknown letter while excluding known letters
     def matchers
-      @find.split('').map { |char| char == '?' ? allowed_letters : "#{char}{1}" }.join ''
+      @find.split('').map { |char| char == '*' ? allowed_letters : "#{char}{1}" }.join ''
     end
     
     # builds a regex: /[abdef...]{1}/ that excludes known letters
     def allowed_letters
-      @allowed_letters ||= "[#{LETTERS.reject { |letter| @find.split('?').include? letter }.join ''}]{1}"
+      @allowed_letters ||= "[#{LETTERS.reject { |letter| @find.split('*').include? letter }.join ''}]{1}"
     end
     
   end
