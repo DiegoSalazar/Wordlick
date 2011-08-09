@@ -58,6 +58,7 @@
 			</form>
 
 			<% if @results %>
+				<%= erb :debug if @debug %>
 				<p><%= @results.size %> results for <%= @find %></p>
 				<ol id="result">
 					<%= @results.map { |r| "<li>#{r}</li>" }.join "\n" %>

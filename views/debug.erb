@@ -1,0 +1,8 @@
+<div id="debug">
+	<% @debug.each do |name, data| %>
+		<div>
+			<strong><%= name %>:</strong><br />
+			<pre><%= data.pretty_inspect %></pre>
+		</div>
+	<% end %>
+</div>
