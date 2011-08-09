@@ -36,7 +36,7 @@ class Wordlicker
     
     # builds a regex: /[abdef...]{1}/ that excludes known letters
     def allowed_letters
-      @allowed_letters ||= "[#{LETTERS.reject { |letter| @find.split('?').include? letter }}]{1}"
+      @allowed_letters ||= "[#{LETTERS.reject { |letter| @find.split('?').include? letter }.join ''}]{1}"
     end
     
   end
