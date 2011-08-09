@@ -1,5 +1,5 @@
 # Wordlick
-# hangman solver
+# hangman solver controller
 # (c) 2011 Diego Salazar
 
 %w(rubygems sinatra cgi wordlicker).map { |lib| require lib }
