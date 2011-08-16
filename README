@@ -2,6 +2,7 @@
 
 To run locally:
 git clone -o origin git@github.com:DiegoSalazar/Wordlick.git
+sudo gem install sinatra (if you don't have it)
 cd wordlick
 ruby wordlick.rb
 go to localhost:4567
