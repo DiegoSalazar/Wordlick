@@ -1,4 +1,4 @@
-** Wordlick: Mobile optimized Sinatra app for solving/generating words for Hanging With Friends
+** Wordlick: Mobile optimized Ruby/Sinatra app for solving/generating words for Hanging With Friends
 
 To run locally:
 git clone -o origin git@github.com:DiegoSalazar/Wordlick.git
