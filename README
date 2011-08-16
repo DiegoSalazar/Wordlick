@@ -1,0 +1,11 @@
+** Wordlick: Mobile optimized Sinatra app for solving/generating words for Hanging With Friends
+
+To run locally:
+git clone -o origin git@github.com:DiegoSalazar/Wordlick.git
+cd wordlick
+ruby wordlick.rb
+go to localhost:4567
+
+***************************************************************
+Notes: The word finding regex needs improvement. 
+	For example: if we submit "e-e--" we shouldn't see a result that contains more than 2 "e" since we're looking for a word that only has 2 "e" 
