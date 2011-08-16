@@ -72,7 +72,7 @@ class Wordlicker
     end
     
     def find_words
-      words    = WORDS.select { |word| word.length <= 8 }
+      words    = WORDS.select { |word| word.size.between? 4, 8 }
       puts "-----> Searching through #{words.size} words..."
       @results = words.select { |word| @regexp.match word }
       puts "-----> Using regexp #{@regexp} I found #{@results.size} words."
