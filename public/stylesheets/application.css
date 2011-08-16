@@ -21,3 +21,7 @@ input[type="submit"]{font-size:24px;}
 li{font-size:12px;}
 #results,#solved{border:2px solid #393;padding:7px;}
 #solved{background:#0C9;}
+#tab_toggle{list-style:none;margin:0 0 10px 0;clear:both;overflow:hidden;}
+#tab_toggle li{float:left;}
+#tab_toggle li a{display:block;float:left;padding:7px 12px;background:#ebebeb;}
+#tab_toggle li a.active{background:#fff;}

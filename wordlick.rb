@@ -16,3 +16,10 @@ get '/solve' do
   #@debug   = Wordlicker.debug
   erb :layout
 end
+
+get '/build' do
+  @letters = CGI.unescape env['rack.request.query_hash']['letters']
+  @results = Wordlicker.build_words @letters
+  #@debug   = Wordlicker.debug
+  erb :layout
+end
