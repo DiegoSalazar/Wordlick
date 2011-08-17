@@ -15,7 +15,7 @@ get '/solve' do
   @except  = CGI.unescape env['rack.request.query_hash']['except']
   @results = Wordlicker.get_solush @find, @except
   @suggest = Wordlicker.suggest_letter @results, (@find.gsub('-', '') << @except)
-  @suggestion = "<p>Try the letter #{@suggest.upcase} next.</p>"
+  @suggestion = "<p>Try the letter #{@suggest.upcase} next.</p>" if @suggest
   #@debug   = Wordlicker.debug
   erb :layout
 end
