@@ -57,7 +57,7 @@ class Wordlicker
       # TODO: improve this regexp
       letter_arr = @letters.split('')
       @regexp = /#{letter_arr.map { |l| "#{l}{1,#{@letters.scan(l).size}}" }.join '|'}/i
-      @except = LETTERS.reject { |letter| @letters.split('').include? letter }.join
+      @except = LETTERS.reject { |letter| letter_arr.include? letter }.join
       find_words
       reject_words @letters
       score_words
@@ -81,9 +81,7 @@ class Wordlicker
     
     def find_words
       words = WORDS.select { |word| word.size.between? 4, 8 }
-      puts "-----> Searching through #{words.size} words..."
       @results = words.select { |word| @regexp.match word }
-      puts "-----> Using regexp #{@regexp} I found #{@results.size} words."
     end
     
     def reject_words(letters)
