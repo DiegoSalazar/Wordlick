@@ -23,7 +23,7 @@ class Wordlicker
     # go through each word and count up the letters not in @tryed
     # the most common letter should be suggested
     def suggest_letter(words, tryed)
-      @words, @tryed = words, tryed
+      @words, @tryed = [words].flatten, tryed
       suggest!
     end
     
@@ -80,7 +80,7 @@ class Wordlicker
     end
     
     def find_words
-      words    = WORDS.select { |word| word.size.between? 4, 8 }
+      words = WORDS.select { |word| word.size.between? 4, 8 }
       puts "-----> Searching through #{words.size} words..."
       @results = words.select { |word| @regexp.match word }
       puts "-----> Using regexp #{@regexp} I found #{@results.size} words."
