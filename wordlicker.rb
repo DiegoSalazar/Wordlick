@@ -1,17 +1,14 @@
 # Wordlicker
-# hangman solver/generator singleton
+# Hangman solver/builder singleton
 
 class Wordlicker
   LETTERS = ('a'..'z').map
   WORDS   = File.read('./words').split("\n") # copied this file from the ENABLE dictionary
   # found these on http://osxreality.com/2010/01/01/beginners-guide-to-words-with-friends-2/
   LETTER_VALUES = {
-    'A' => 1, 'B' => 4,	'C' => 4,	'D' => 2, 'E' => 1,	
-    'F' => 4,	'G' => 3, 'H' => 3, 'I' => 1,	'J' => 10,	
-    'K' => 5, 'L' => 2, 'M' => 4,	'N' => 2, 'O' => 1,	
-    'P' => 4, 'Q' => 10, 'R' => 1, 'S' => 1, 'T' => 1,
-    'U' => 2, 'V' => 5, 'W' => 4, 'X' => 8,	 'Y' => 3,
-    'Z' => 10
+    'A' => 1, 'B' => 4,	'C' => 4,	'D' => 2, 'E' => 1, 'F' => 4,	'G' => 3, 'H' => 3, 'I' => 1,
+    'J' => 10,'K' => 5, 'L' => 2, 'M' => 4,	'N' => 2, 'O' => 1, 'P' => 4, 'Q' => 10,'R' => 1,
+    'S' => 1, 'T' => 1, 'U' => 2, 'V' => 5, 'W' => 4, 'X' => 8, 'Y' => 3, 'Z' => 10
   }
   
   class << self
@@ -20,6 +17,14 @@ class Wordlicker
     def get_solush(find, except)
       @find, @except = find, except
       solve!
+    end
+    
+    # suggest next letter to try based on the number of non-unique letters
+    # go through each word and count up the letters not in @tryed
+    # the most common letter should be suggested
+    def suggest_letter(words, tryed)
+      @words, @tryed = words, tryed
+      suggest!
     end
     
     # takes a set of 12 letters and finds all words that contain these letters
@@ -33,7 +38,7 @@ class Wordlicker
       require 'pp'
       @debug = {}
       instance_variables.each do |var|
-        @debug.store var.sub('@', ''), instance_variable_get(var)
+        @debug.store var.sub('@', ''), instance_variable_get(var) unless var == '@debug'
       end
       @debug
     end
@@ -43,7 +48,7 @@ class Wordlicker
     def solve!
       @regexp = /^#{matchers}$/i
       find_words
-      reject_words
+      reject_words @find
       @total = @results.size
       @results
     end
@@ -54,21 +59,24 @@ class Wordlicker
       @regexp = /#{letter_arr.map { |l| "#{l}{1,#{@letters.scan(l).size}}" }.join '|'}/i
       @except = LETTERS.reject { |letter| @letters.split('').include? letter }.join
       find_words
-      reject_words
-      # we need to do some further rejections based on the number of non-unique letters
-      # if we have 2 "e" in the set, we can't allow words that have more than 2 "e"
-      @results.reject! do |word|
-        letter_arr.any? do |letter|
-          next if word[letter].nil?
-          num_in_word = word.scan(letter).size
-          num_in_set  = @letters.scan(letter).size
-          num_in_word > num_in_set
-        end
-      end
+      reject_words @letters
       score_words
       @results = @scores
       @total   = @results.size
       @results.shift(20).map! { |r| [r[:word], r[:score]] } # first 20 results
+    end
+    
+    def suggest!
+      @counts = {}
+      @words.map(&:first).each do |word|
+        word.split('').each do |letter|
+          unless @tryed[letter]
+            @counts[letter] ||= 0
+            @counts[letter] += 1
+          end
+        end
+      end
+      @suggestion = @counts.sort { |a, b| a.last <=> b.last }.reverse.first[0]
     end
     
     def find_words
@@ -78,10 +86,21 @@ class Wordlicker
       puts "-----> Using regexp #{@regexp} I found #{@results.size} words."
     end
     
-    def reject_words
+    def reject_words(letters)
       return unless @except && @except != ''
       @rgxcept = /#{@except.split('').join '|'}/i
       @results.reject! { |word| @rgxcept.match word }
+      letter_arr = letters.split('')
+      # we need to do some further rejections based on the number of non-unique letters
+      # if we have 2 "e" in the set, we can't allow words that have more than 2 "e"
+      @results.reject! do |word|
+        letter_arr.any? do |letter|
+          next if word[letter].nil?
+          num_in_word = word.scan(letter).size
+          num_in_set  = letters.scan(letter).size
+          num_in_word > num_in_set
+        end
+      end
     end
     
     # match a known letter, or an unknown letter while excluding known letters

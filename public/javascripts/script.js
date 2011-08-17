@@ -2,7 +2,7 @@
    Wordlick: Hangman solver
 */
 
-// Tab chooser
+// Tab switcher
 $('.tab').each(function() {
 	var active_tab = $('a.active', '#tab_toggle'),
 		href_parts = active_tab.attr('href').split('#'),
@@ -23,26 +23,3 @@ $('a', '#tab_toggle').click(function() {
 	
 	return false;
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
