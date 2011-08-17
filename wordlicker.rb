@@ -67,7 +67,7 @@ class Wordlicker
     end
     
     def suggest!
-      return if words.empty?
+      return if @words.empty?
       @counts = {}
       @words.each do |word|
         word.split('').each do |letter|
