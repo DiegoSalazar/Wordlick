@@ -68,7 +68,7 @@ class Wordlicker
     
     def suggest!
       @counts = {}
-      @words.map(&:first).each do |word|
+      @words.each do |word|
         word.split('').each do |letter|
           unless @tryed[letter]
             @counts[letter] ||= 0
