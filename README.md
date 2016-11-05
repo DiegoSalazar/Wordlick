@@ -1,12 +1,20 @@
-** Wordlick: Mobile optimized Ruby/Sinatra app for solving/generating words for Hanging With Friends
+# Wordlick
 
-To run locally:
+Mobile optimized Ruby/Sinatra app for solving/generating words for Hanging With Friends.
+
+[Demo.](http://wordlick.herokuapp.com/)
+
+## To run locally
+
+```bash
 git clone -o origin git@github.com:DiegoSalazar/Wordlick.git
 sudo gem install sinatra (if you don't have it)
 cd wordlick
-ruby wordlick.rb
+bundle
+rackup
+```
 
-point your browser to localhost:4567
+Point your browser to `localhost:9292`
 
 ***************************************************************
 Notes: The word finding regex needs improvement. 
