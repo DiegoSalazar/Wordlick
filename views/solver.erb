@@ -43,7 +43,6 @@
       <form action="/build" method="get">
         <div class="form-group">
           <label for="letters">Enter a set of 12 letters</label>
-          <span class="help-block">Up to 12 letters and dashes</span>
           <input class="form-control" id="letters" name="letters" maxlength="12" type="text" value="<%= @letters %>" />
         </div>
 
@@ -67,7 +66,7 @@
     <div id="results" class="alert alert-info">
       <p>
          <span class="badge"><%= @results.size %></span>
-         solutions for 
+         suggestions for 
          <strong><%= @find || @letters %></strong>.
          <%= @suggestion %>
       </p>

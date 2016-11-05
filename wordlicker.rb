@@ -55,7 +55,7 @@ class Wordlicker
     
     def build!
       # TODO: improve this regexp
-      letter_arr = @letters.split('')
+      letter_arr = @letters.chars
       @regexp = /#{letter_arr.map { |l| "#{l}{1,#{@letters.scan(l).size}}" }.join '|'}/i
       @except = LETTERS.reject { |letter| letter_arr.include? letter }.join
       find_words
@@ -70,7 +70,7 @@ class Wordlicker
       return if @words.empty?
       @counts = {}
       @words.each do |word|
-        word.split('').each do |letter|
+        word.chars.each do |letter|
           unless @tryed[letter]
             @counts[letter] ||= 0
             @counts[letter] += 1
@@ -88,9 +88,9 @@ class Wordlicker
     
     def reject_words(letters)
       return unless @except && @except != ''
-      @rgxcept = /#{@except.split('').join '|'}/i
+      @rgxcept = /#{@except.chars.join '|'}/i
       @results.reject! { |word| @rgxcept.match word }
-      letter_arr = letters.split('')
+      letter_arr = letters.chars
       # we need to do some further rejections based on the number of non-unique letters
       # if we have 2 "e" in the set, we can't allow words that have more than 2 "e"
       @results.reject! do |word|
@@ -105,12 +105,12 @@ class Wordlicker
     
     # match a known letter, or an unknown letter while excluding known letters
     def matchers
-      @find.split('').map { |char| char == '-' ? allowed_letters : "#{char}{1}" }.join ''
+      @find.chars.map { |char| char == '-' ? allowed_letters : "#{char}{1}" }.join ''
     end
     
     # builds a regex: /[abdef...]{1}/ that excludes known letters
     def allowed_letters
-      @allowed_letters ||= "[#{LETTERS.reject { |letter| (@find.split('*') | @except.split('')).include?(letter) }.join ''}]{1}"
+      @allowed_letters ||= "[#{LETTERS.reject { |letter| (@find.split('*') | @except.chars).include?(letter) }.join ''}]{1}"
     end
     
     # score words and sort in descending order
@@ -121,10 +121,7 @@ class Wordlicker
     end
     
     def score_word(word)
-      points  = word.split('').map { |letter| LETTER_VALUES[letter.upcase] }
-      # get the sum of all ints in array. inject is awesome!
-      points.inject(0) { |result, num| result += num }
+      word.chars.map { |letter| LETTER_VALUES[letter.upcase] }.inject :+
     end
-    
   end
 end
