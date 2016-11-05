@@ -1,0 +1,86 @@
+<div>
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="<%= 'active' unless params.has_key?('letters') %>">
+      <a href="#solve" aria-controls="solve" role="tab" data-toggle="tab">
+        <span class="glyphicon glyphicon-search"></span>
+        Solve
+      </a>
+    </li>
+    <li role="presentation" class="<%= 'active' if params.has_key?('letters') %>">
+      <a href="#build" aria-controls="build" role="tab" data-toggle="tab">
+        <span class="glyphicon glyphicon-edit"></span>
+        Build
+      </a>
+    </li>
+  </ul>
+  
+  <hr />
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="solve">
+      <form action="/solve" method="get">
+        <div class="form-group">
+          <label for="known">Known letters</label>
+          <span class="help-block">Use a dash "-" for unknown letters</span>
+          <input class="form-control" id="known" name="find" type="text" maxlength="8" value="<%= @find %>" />
+        </div>
+
+        <div class="form-group">
+          <label for="except">Exceptional letters</label>
+          <span class="help-block">Letters that have   already been used</span>
+          <input class="form-control" id="except" name="except" type="text" value="<%= @except %>" />
+        </div>
+
+        <button class="bt btn-success" type="submit">
+          Lick That Word!
+        </button>
+      </form>
+    </div>
+    
+    <div role="tabpanel" class="tab-pane" id="build">
+      <form action="/build" method="get">
+        <div class="form-group">
+          <label for="letters">Enter a set of 12 letters</label>
+          <span class="help-block">Up to 12 letters and dashes</span>
+          <input class="form-control" id="letters" name="letters" maxlength="12" type="text" value="<%= @letters %>" />
+        </div>
+
+        <button class="bt btn-info" type="submit">
+          Build Me Words!
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<% if @results %>
+  <hr />
+  <%= erb :debug if @debug %>
+
+  <% if @results.size == 1 %>
+    <div class="alert alert-success" role="alert">
+      The solution is <strong><%= @results.first %>!</strong>
+    </div>
+  <% else %>
+    <div id="results" class="alert alert-info">
+      <p>
+         <span class="badge"><%= @results.size %></span>
+         solutions for 
+         <strong><%= @find || @letters %></strong>.
+         <%= @suggestion %>
+      </p>
+    </div>
+    
+    <ol class="list-group">
+      <% @results.map do |r| %>
+        <li class='list-group-item'>
+          <%= r.is_a?(Array) ? r.join(', ') : r %>
+        </li>
+      <% end %>
+    </ol>
+  <% end %>
+<% end %>
+
+</div> <!--! end of #container -->
