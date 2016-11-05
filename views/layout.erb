@@ -20,7 +20,7 @@
 	  <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
 
 	  <!-- CSS: implied media="all" -->
-	  <link rel="stylesheet" href="/stylesheets/style.css">
+	  <!-- <link rel="stylesheet" href="/stylesheets/style.css"> -->
 		<link rel="stylesheet" href="/stylesheets/application.css?v=6">
 
 	  <!-- Uncomment if you are specifically targeting less enabled mobile browsers
@@ -29,8 +29,8 @@
 	  <!-- enables HTML5 elements & feature detects -->
 	  <script src="/javascripts/modernizr-1.7.min.js"></script>
 		<!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if necessary -->
-	  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.js"></script>
-	  <script>window.jQuery || document.write("<script src='/javascripts/jquery-1.5.1.min.js'>\x3C/script>")</script>
+	  <script src="/javascripts/jquery.min.js"></script>
+	  <script src="/javascripts/bootstrap.min.js"></script>
 		<script src="/javascripts/plugins.js"></script>
 	  <script src="/javascripts/script.js"></script>
 		
@@ -40,68 +40,17 @@
 	  <![endif]-->
 	</head>
 	<body>
-		<header>
-			<h1>Wordlick</h1>
-	  </header>
-	
-	  <div id="container" role="main">
-			<ul id="tab_toggle">
-				<li><a href="#solve" class="<%= 'active' unless params.has_key?('letters') %>">Solve</a></li>
-				<li><a href="#build" class="<%= 'active' if params.has_key?('letters') %>">Build</a></li>
-			</ul>
-		
-			<div id="solve" class="tab">
-				<form action="/solve" method="get">
-					<fieldset>
-						<legend>Known letters<br /><span class="note">Use a dash "-" for unknown letters</span></legend>
-						<input name="find" type="text" maxlength="8" value="<%= @find %>" />
-					</fieldset>
+	  <div class="container" role="main">
+			<%= erb :nav %>
+			<%= yield %>
+		  <hr />
+	  </div>
+	  
 
-					<fieldset>
-						<legend>Exceptional letters<br /><span class="note">Letters that have already been used</span></legend>
-						<input name="except" type="text" value="<%= @except %>" />
-					</fieldset>
-
-					<fieldset>
-						<input value="Lick That Word!" type="submit" />
-					</fieldset>
-				</form>
-			</div>
-		
-			<div id="build" class="tab">
-				<form action="/build" method="get">
-					<fieldset>
-						<legend>Enter a set of 12 letters</legend><br />
-						<input name="letters" maxlength="12" type="text" value="<%= @letters %>" />
-					</fieldset>
-
-					<fieldset>
-						<input value="Build Me Words!" type="submit" />
-					</fieldset>
-				</form>
-			</div>
-		
-			<% if @results %>
-				<%= erb :debug if @debug %>
-
-				<% if @results.size == 1 %>
-					<p id="solved">The solush is <strong><%= @results.first %>!</strong></p>
-				<% else %>
-					<div id="results">
-						<p><%= @results.size %> results for <%= @find || @letters %></p>
-					
-						<%= @suggestion %>
-					
-						<ol>
-							<%= @results.map { |r| "<li>#{r.is_a?(Array) ? r.join(', ') : r}</li>" }.join "\n" %>
-						</ol>
-					</div>
-				<% end %>
-			<% end %>
-	  </div> <!--! end of #container -->
-
-		<footer>
-			(4fun) Diego Salazar
-	  </footer>
+		<footer class="footer">
+      <div class="container">
+        <p class="text-muted">Diego Salazar &copy; 2016</p>
+      </div>
+    </footer>
 	</body>
 </html>

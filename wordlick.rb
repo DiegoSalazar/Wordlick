@@ -7,7 +7,7 @@
 require './wordlicker'
 
 get '/' do
-  erb :layout
+  erb :solver, layout: :layout
 end
 
 get '/solve' do
@@ -17,12 +17,16 @@ get '/solve' do
   @suggest = Wordlicker.suggest_letter @results, (@find.gsub('-', '') << @except)
   @suggestion = "<p>Try the letter #{@suggest.upcase} next.</p>" if @suggest
   #@debug   = Wordlicker.debug
-  erb :layout
+  erb :solver
 end
 
 get '/build' do
   @letters = CGI.unescape env['rack.request.query_hash']['letters']
   @results = Wordlicker.build_words @letters
   #@debug  = Wordlicker.debug
-  erb :layout
+  erb :solver
+end
+
+get '/about' do
+  erb :about
 end

@@ -77,7 +77,8 @@ class Wordlicker
           end
         end
       end
-      @suggestion = @counts.sort { |a, b| a.last <=> b.last }.reverse.first[0]
+      s = @counts.sort { |a, b| a.last <=> b.last }.reverse.first
+      @suggestion = s ? s[0] : ""
     end
     
     def find_words
