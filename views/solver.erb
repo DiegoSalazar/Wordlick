@@ -20,6 +20,11 @@
   <!-- Tab panes -->
   <div class="tab-content">
     <div role="tabpanel" class="tab-pane active" id="solve">
+      <p>
+        Here you can solve a partially guessed word in Hangman. Say you've correctly guessed the letters "b", "a" and "e". You would then fill out the "Known letters" field below, using a dash "-" for the letters you don't yet know e.g. "ba-e-" (for a 5 letter word). Wordlick will then give you a list of most likely solution words ordered by most likely first (guessing "babel" for the previous example). 
+        <a href="/about">Read more...</a>
+      </p>
+
       <form action="/solve" method="get">
         <div class="form-group">
           <label for="known">Known letters</label>
@@ -40,6 +45,10 @@
     </div>
     
     <div role="tabpanel" class="tab-pane" id="build">
+      <p>
+        Here you can give Wordlick a list of letters you have available to build a word in Hangman. Enter all the letters you're playing (12 in Words with Friends), Wordlick then gives you a list of all the words you can make ordered by highest scoring word first.
+      </p>
+
       <form action="/build" method="get">
         <div class="form-group">
           <label for="letters">Enter a set of 12 letters</label>
